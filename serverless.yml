@@ -18,6 +18,8 @@ provider:
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
         - s3:*
+        - lambda:InvokeFunction
+        - lambda:InvokeAsync
       Resource: "*"
 
 functions:
