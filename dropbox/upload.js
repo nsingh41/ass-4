@@ -3,6 +3,11 @@
 const uuid = require('uuid');
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
+const s3 = new AWS.S3()
+const lambda = new AWS.Lambda({
+  region: 'us-west-2'
+})
+
 module.exports.upload = (event) => {
   event.Records.forEach((record) => {
     const filename = record.s3.object.key;
@@ -24,7 +29,7 @@ eventTime: eventTime
         return;
       }
       let twilio = {
-        FunctionName: 'navjot-dev-message',
+        FunctionName: 'navjot-dev-sms',
         Payload: JSON.stringify({ filename: filename })
       }
       const lambda = require('aws-lambda-invoke');
